@@ -1,0 +1,86 @@
+syntax = "proto3";
+package youngestdev.crowdfund.crowdfund;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "crowdfund/params.proto";
+import "crowdfund/campaigns.proto";
+import "crowdfund/pledges.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/youngestdev/crowdfund/x/crowdfund/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/youngestdev/crowdfund/crowdfund/params";
+  }
+  // Queries a Campaigns by id.
+	rpc Campaigns(QueryGetCampaignsRequest) returns (QueryGetCampaignsResponse) {
+		option (google.api.http).get = "/youngestdev/crowdfund/crowdfund/campaigns/{id}";
+	}
+
+	// Queries a list of Campaigns items.
+	rpc CampaignsAll(QueryAllCampaignsRequest) returns (QueryAllCampaignsResponse) {
+		option (google.api.http).get = "/youngestdev/crowdfund/crowdfund/campaigns";
+	}
+
+// Queries a Pledges by id.
+	rpc Pledges(QueryGetPledgesRequest) returns (QueryGetPledgesResponse) {
+		option (google.api.http).get = "/youngestdev/crowdfund/crowdfund/pledges/{id}";
+	}
+
+	// Queries a list of Pledges items.
+	rpc PledgesAll(QueryAllPledgesRequest) returns (QueryAllPledgesResponse) {
+		option (google.api.http).get = "/youngestdev/crowdfund/crowdfund/pledges";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetCampaignsRequest {
+	uint64 id = 1;
+}
+
+message QueryGetCampaignsResponse {
+	Campaigns Campaigns = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCampaignsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCampaignsResponse {
+	repeated Campaigns Campaigns = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetPledgesRequest {
+	uint64 id = 1;
+}
+
+message QueryGetPledgesResponse {
+	Pledges Pledges = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPledgesRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPledgesResponse {
+	repeated Pledges Pledges = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

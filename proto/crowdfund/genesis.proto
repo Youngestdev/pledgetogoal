@@ -1,0 +1,20 @@
+syntax = "proto3";
+package youngestdev.crowdfund.crowdfund;
+
+import "gogoproto/gogo.proto";
+import "crowdfund/params.proto";
+import "crowdfund/campaigns.proto";
+import "crowdfund/pledges.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/youngestdev/crowdfund/x/crowdfund/types";
+
+// GenesisState defines the crowdfund module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated Campaigns campaignsList = 2 [(gogoproto.nullable) = false];
+  uint64 campaignsCount = 3;
+  repeated Pledges pledgesList = 4 [(gogoproto.nullable) = false];
+  uint64 pledgesCount = 5;
+  // this line is used by starport scaffolding # genesis/proto/state
+}

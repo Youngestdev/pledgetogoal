@@ -1,0 +1,71 @@
+syntax = "proto3";
+package youngestdev.crowdfund.crowdfund;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/youngestdev/crowdfund/x/crowdfund/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc Launch(MsgLaunch) returns (MsgLaunchResponse);
+  rpc Pledge(MsgPledge) returns (MsgPledgeResponse);
+  rpc Cancel(MsgCancel) returns (MsgCancelResponse);
+  rpc Claim(MsgClaim) returns (MsgClaimResponse);
+  rpc Unpledge(MsgUnpledge) returns (MsgUnpledgeResponse);
+  rpc Refund(MsgRefund) returns (MsgRefundResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgLaunch {
+  string creator = 1;
+  string goal = 2;
+  string start = 3;
+  string end = 4;
+}
+
+message MsgLaunchResponse {
+}
+
+message MsgPledge {
+  string creator = 1;
+  uint64 id = 2;
+  string amount = 3;
+}
+
+message MsgPledgeResponse {
+}
+
+message MsgCancel {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgCancelResponse {
+}
+
+message MsgClaim {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgClaimResponse {
+}
+
+message MsgUnpledge {
+  string creator = 1;
+  uint64 id = 2;
+  string amount = 3;
+}
+
+message MsgUnpledgeResponse {
+}
+
+message MsgRefund {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgRefundResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

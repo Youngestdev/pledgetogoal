@@ -1,0 +1,14 @@
+syntax = "proto3";
+package youngestdev.crowdfund.crowdfund;
+
+option go_package = "github.com/youngestdev/crowdfund/x/crowdfund/types";
+
+message Campaigns {
+  uint64 id = 1;
+  string goal = 2;
+  string pledged = 3;
+  int64 start = 4; 
+  int64 end = 5; 
+  bool claimed = 6;
+  string creator = 7;
+}
