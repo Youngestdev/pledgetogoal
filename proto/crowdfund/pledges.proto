@@ -6,7 +6,6 @@ option go_package = "github.com/youngestdev/crowdfund/x/crowdfund/types";
 message Pledges {
   uint64 id = 1;
   uint64 cid = 2;
-  string amount = 3; 
-  string address = 4; 
-  
+  string amount = 3;
+  string address = 4;
 }
