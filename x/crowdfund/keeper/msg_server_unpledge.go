@@ -23,12 +23,16 @@ func (k msgServer) Unpledge(goCtx context.Context, msg *types.MsgUnpledge) (*typ
 		return nil, sdkerrors.Wrap(sdkerrors.ErrNotFound, "Pledge not found")
 	}
 	
-	// Not sure how this will work but.. let's see.
+	// If current time is past the end time for the campaign
 	if ctx.BlockTime().Unix() > campaign.End {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "campaign has ended")
 	}
 	
 	pledged, _ := sdk.ParseCoinsNormalized(pledge.Amount)
+	
+	if reduction.IsAllGT(pledged) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "pledge less than supply amount")
+	}
 	
 	decrementPledge := pledged.Sub(reduction)
 	pledge.Amount = decrementPledge.String()

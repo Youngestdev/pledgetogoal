@@ -31,15 +31,14 @@ func (k msgServer) Refund(goCtx context.Context, msg *types.MsgRefund) (*types.M
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Can not refund campaign before end date")
 	}
 	
-	if pledgedAmnt.IsAllGT(goal) {
+	if pledgedAmnt.IsAllGTE(goal) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "Target met")
 	}
 	
 	pledged, _ := sdk.ParseCoinsNormalized(pledge.Amount)
-	pledge.Amount = "0"
-	campaign.Pledged = "0"
+	campaign.Pledged = pledged.Sub(pledgedAmnt).String()
 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, pledgeAddress, pledged)
-	k.SetPledges(ctx, pledge)
+	k.RemovePledges(ctx, pledge.Id)
 	k.SetCampaigns(ctx, campaign)
 	return &types.MsgRefundResponse{}, nil
 }

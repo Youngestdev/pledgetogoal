@@ -71,6 +71,7 @@ func (k Keeper) GetPledges(ctx sdk.Context, id uint64) (val types.Pledges, found
 	return val, true
 }
 
+// GetPledgesByAddr returns a pledge from its address
 func (k Keeper) GetPledgesByAddr(ctx sdk.Context, addr string) (val types.Pledges, found bool) {
 	pledges := k.GetAllPledges(ctx)
 	for _, pledge := range pledges {
