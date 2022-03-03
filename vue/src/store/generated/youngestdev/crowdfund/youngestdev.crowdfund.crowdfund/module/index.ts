@@ -4,21 +4,21 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCancel } from "./types/crowdfund/tx";
 import { MsgRefund } from "./types/crowdfund/tx";
 import { MsgUnpledge } from "./types/crowdfund/tx";
 import { MsgLaunch } from "./types/crowdfund/tx";
 import { MsgPledge } from "./types/crowdfund/tx";
 import { MsgClaim } from "./types/crowdfund/tx";
+import { MsgCancel } from "./types/crowdfund/tx";
 
 
 const types = [
-  ["/youngestdev.crowdfund.crowdfund.MsgCancel", MsgCancel],
   ["/youngestdev.crowdfund.crowdfund.MsgRefund", MsgRefund],
   ["/youngestdev.crowdfund.crowdfund.MsgUnpledge", MsgUnpledge],
   ["/youngestdev.crowdfund.crowdfund.MsgLaunch", MsgLaunch],
   ["/youngestdev.crowdfund.crowdfund.MsgPledge", MsgPledge],
   ["/youngestdev.crowdfund.crowdfund.MsgClaim", MsgClaim],
+  ["/youngestdev.crowdfund.crowdfund.MsgCancel", MsgCancel],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -51,12 +51,12 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCancel: (data: MsgCancel): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgCancel", value: MsgCancel.fromPartial( data ) }),
     msgRefund: (data: MsgRefund): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgRefund", value: MsgRefund.fromPartial( data ) }),
     msgUnpledge: (data: MsgUnpledge): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgUnpledge", value: MsgUnpledge.fromPartial( data ) }),
     msgLaunch: (data: MsgLaunch): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgLaunch", value: MsgLaunch.fromPartial( data ) }),
     msgPledge: (data: MsgPledge): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgPledge", value: MsgPledge.fromPartial( data ) }),
     msgClaim: (data: MsgClaim): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgClaim", value: MsgClaim.fromPartial( data ) }),
+    msgCancel: (data: MsgCancel): EncodeObject => ({ typeUrl: "/youngestdev.crowdfund.crowdfund.MsgCancel", value: MsgCancel.fromPartial( data ) }),
     
   };
 };
