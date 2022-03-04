@@ -19,7 +19,7 @@ func (k msgServer) Refund(goCtx context.Context, msg *types.MsgRefund) (*types.M
 	
 	pledgeAddress, _ := sdk.AccAddressFromBech32(msg.Creator)
 	
-	if present == false {
+	if !present {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrNotFound, "Pledge not found")
 	}
 	
@@ -36,7 +36,7 @@ func (k msgServer) Refund(goCtx context.Context, msg *types.MsgRefund) (*types.M
 	}
 	
 	pledged, _ := sdk.ParseCoinsNormalized(pledge.Amount)
-	campaign.Pledged = pledged.Sub(pledgedAmnt).String()
+	campaign.Pledged = pledged.Sub(pledged).String()
 	k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, pledgeAddress, pledged)
 	k.RemovePledges(ctx, pledge.Id)
 	k.SetCampaigns(ctx, campaign)
