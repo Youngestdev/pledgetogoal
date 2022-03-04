@@ -18,7 +18,7 @@ In order to follow this tutorial, you should have:
 
 ## Install Starport
 
-The starport CLI is responsible for scaffolding the applications' blockchain, modules, lists and messages. In your terminal, run the command below to install Starport's CLI:
+The Starport CLI is responsible for scaffolding the applications' blockchain, modules, lists and messages. In your terminal, run the command below to install Starport's CLI:
 
 ```console
 $ curl https://get.starport.com/starport! | bash
