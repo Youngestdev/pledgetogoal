@@ -56,7 +56,7 @@ func (k msgServer) Pledge(goCtx context.Context, msg *types.MsgPledge) (*types.M
 	
 	pledge, found := k.GetPledgesByAddr(ctx, msg.Creator)
 	
-	if found == true {
+	if found {
 		pledged, _ := sdk.ParseCoinsNormalized(pledge.Amount)
 		incrementPledge := pledged.Add(amnt)
 		pledge.Amount = incrementPledge.String()
@@ -64,7 +64,7 @@ func (k msgServer) Pledge(goCtx context.Context, msg *types.MsgPledge) (*types.M
 		k.SetPledges(ctx, pledge)
 	}
 	
-	if found == false {
+	if !found {
 		newPledge := types.Pledges{
 			Cid:     campaign.Id,
 			Amount:  msg.Amount,
